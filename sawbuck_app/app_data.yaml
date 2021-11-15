@@ -1,0 +1,185 @@
+# Copyright 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
+ACCOUNTS:
+
+  - label: CoBank Letter Of Credit Vault
+    description: The sole issuing authoririty for Minicoins
+    email: minicoin@minicoin.example
+    password: password
+    ASSETS:
+      - name: Rice Grain
+        description: Long Rice Grain from Beijing China
+        rules:
+          - type: OWNER_HOLDINGS_INFINITE
+    HOLDINGS:
+      - label: Minicoin Source
+        description: An unlimited supply new minicoin
+        asset: Rice Grain
+        quantity: 9007199254740991
+    OFFERS:
+      - label: Request Rice Grain
+        description: A one time payout of 1 million minicoin
+        source: $REF=HOLDINGS[label:Minicoin Source].id
+        sourceQuantity: 1000000
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT
+    RENEWABLES: []
+
+  - label: Sawtooth Central
+    description: The source for all your Sawtooth products and services
+    email: sawtooth@hyperledger.org
+    password: password
+    ASSETS:
+      - name: USD
+        description: United States Dinero
+        rules:
+          - type: OWNER_HOLDINGS_INFINITE
+      - name: FCA Approval
+        description: |
+          You just started collecting Sawbucks, but you have a bright future.
+        rules:
+          - type: ALL_HOLDINGS_INFINITE
+          - type: NOT_TRANSFERABLE
+      - name: CoBank Approval
+        description: |
+          You're moving up, but don't yet have the recognition you crave.
+        rules:
+          - type: ALL_HOLDINGS_INFINITE
+          - type: NOT_TRANSFERABLE
+      - name: Foreign Bank Approval
+        description: You're a serious Sawbuck contender.
+        rules:
+          - type: ALL_HOLDINGS_INFINITE
+          - type: NOT_TRANSFERABLE
+      - name: Platinum Status
+        description: |
+          Only the most loyal and dedicated blockchain fans
+          will achieve this honor.
+        rules:
+          - type: ALL_HOLDINGS_INFINITE
+          - type: NOT_TRANSFERABLE
+      - name: Timber
+        description: |
+          Birch timber from Portland Timber Inc
+        rules: []
+      - name: Orange Juice
+        description: |
+          Orange Juice from Florida Oranges Co
+        rules: []
+      - name: Angus Beef
+        description: Angus Cattle from Arvada Cattle Ranches
+        rules: []
+    HOLDINGS:
+      - label: Sawbucket
+        description: An unlimited supply of precious precious Sawbucks
+        asset: USD
+        quantity: 9007199254740991
+      - label: Bronze Dispenser
+        description: An unlimited supply of Bronze Statuses
+        asset: FCA Approval
+        quantity: 9007199254740991
+      - label: Silver Dispenser
+        description: An unlimited supply of Silver Statuses
+        asset: CoBank Approval
+        quantity: 9007199254740991
+      - label: Gold Dispenser
+        description: An unlimited supply of Gold Statuses
+        asset: Foreign Bank Approval
+        quantity: 9007199254740991
+      - label: Platinum Dispenser
+        description: An unlimited supply of Platinum Statuses
+        asset: Platinum Status
+        quantity: 9007199254740991
+      - label: Sticker Supply
+        description: Coupons for a limited run of 1000 Sawtooth stickers
+        asset: Timber
+        quantity: 1000
+      - label: Blockchain Coupons
+        description: Coupons to be redeemed for free blockchains
+        asset: Orange Juice
+        quantity: 10000
+      - label: Fork Coupons
+        description: Use these to resolve your forks
+        asset: Angus Beef
+        quantity: 100000
+    OFFERS:
+      - label: Give Yourself USD
+        description: Give your user some starting money.
+        source: $REF=HOLDINGS[label:Sawbucket].id
+        sourceQuantity: 100000
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT
+      - label: FCA Approval
+        description: Show off your Sawtooth loyalty with Bronze Status.
+        source: $REF=HOLDINGS[label:Bronze Dispenser].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 100
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT
+      - label: CoBank Approval
+        description: Show off your Sawtooth loyalty with Silver Status.
+        source: $REF=HOLDINGS[label:Silver Dispenser].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 1000
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT
+      - label: Forign Bank Approval
+        description: Show off your Sawtooth loyalty with Gold Status.
+        source: $REF=HOLDINGS[label:Gold Dispenser].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 10000
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT
+      - label: Seller Approval
+        description: Show off your Sawtooth loyalty with Platinum Status.
+        source: $REF=HOLDINGS[label:Platinum Dispenser].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 1000000
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT
+      - label: Request Timber
+        description: Sawtooth stickers are stylish and eco-friendly.
+        source: $REF=HOLDINGS[label:Sticker Supply].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 200
+        rules: []
+      - label: Request Orange Juice
+        description: Run your own blockchain. Wow your friends and neighbors.
+        source: $REF=HOLDINGS[label:Blockchain Coupons].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 500
+        rules: []
+      - label: Request Angus Beef
+        description: Forks. We all have them. Get 'em resolved for free.
+        source: $REF=HOLDINGS[label:Fork Coupons].id
+        sourceQuantity: 1
+        target: $REF=HOLDINGS[label:Sawbucket].id
+        targetQuantity: 50
+        rules: []
+    RENEWABLES:
+      - label: Daily Loyalty Bonus!
+        description: |
+          Refreshed each day, get yourself 500 Sawbucks just for being here!
+        source: $REF=holdings[label:Sawbucket].id
+        sourceQuantity: 500
+        rules:
+          - type: EXCHANGE_ONCE_PER_ACCOUNT

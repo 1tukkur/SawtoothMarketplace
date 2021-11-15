@@ -1,2 +1,0 @@
-# SawtoothMarketplace
-Hyperledger Sawtooth Marketplace
